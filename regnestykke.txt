@@ -1,0 +1,17 @@
+// OLD
+15 Carved undermine crest = 15 Weathered Undermine Crests
+15 Runed Undermine crest = 15 Carved undermine Crests
+15 Gilded Undermine crest = 15 Runed undermine Crests
+
+45 Weathered Undermine crest = 15 Carved Undermine crest
+45 Carved underminst crest = 15 Runed undermine Crests
+45 Runed Undermine crest = 15 Gilded undermine crests
+
+// NEW
+15 Champion Dawncrest crest = 15 Veteran Dawncrest 
+15 Hero Dawncrest crest = 15 Champion Dawncrest 
+15 Myth Dawncrest crest = 15 Hero Dawncrest
+
+45 Veteran Dawncrest  = 15 Champion Dawncrest 
+45 Champion Dawncrest  = 15 Hero Dawncrest 
+45 Hero Dawncrest  = 15 Myth Dawncrest 

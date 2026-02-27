@@ -1,0 +1,163 @@
+export const upgradeTracks = [
+  // Adventurer
+  {
+    crestType: 'Adventurer',
+    ilvl: 220,
+    track: 'Adventurer 1',
+    crestUsed: 'Adventurer',
+    amount: 20,
+  },
+  {
+    crestType: 'Adventurer',
+    ilvl: 224,
+    track: 'Adventurer 2',
+    crestUsed: 'Adventurer',
+    amount: 20,
+  },
+  {
+    crestType: 'Adventurer',
+    ilvl: 227,
+    track: 'Adventurer 3',
+    crestUsed: 'Adventurer',
+    amount: 20,
+  },
+  {
+    crestType: 'Adventurer',
+    ilvl: 230,
+    track: 'Adventurer 4',
+    crestUsed: 'Adventurer',
+    amount: 20,
+  },
+  {
+    crestType: 'Adventurer',
+    ilvl: 233,
+    track: 'Adventurer 5 / Veteran 1',
+    crestUsed: 'Adventurer',
+    amount: 20,
+  },
+
+  // Veteran
+  {
+    crestType: 'Veteran',
+    ilvl: 237,
+    track: 'Adventurer 6 / Veteran 2',
+    crestUsed: 'Adventurer or Veteran',
+    amount: 20,
+  },
+  {
+    crestType: 'Veteran',
+    ilvl: 240,
+    track: 'Veteran 3',
+    crestUsed: 'Veteran',
+    amount: 20,
+  },
+  {
+    crestType: 'Veteran',
+    ilvl: 243,
+    track: 'Veteran 4',
+    crestUsed: 'Veteran',
+    amount: 20,
+  },
+  {
+    crestType: 'Veteran/Champion',
+    ilvl: 246,
+    track: 'Veteran 5 / Champion 1',
+    crestUsed: 'Veteran',
+    amount: 20,
+  },
+  {
+    crestType: 'Veteran/Champion',
+    ilvl: 250,
+    track: 'Veteran 6 / Champion 2',
+    crestUsed: 'Veteran or Champion',
+    amount: 20,
+  },
+
+  // Champion
+  {
+    crestType: 'Veteran/Champion',
+    ilvl: 253,
+    track: 'Champion 3',
+    crestUsed: 'Champion',
+    amount: 20,
+  },
+  {
+    crestType: 'Veteran/Champion',
+    ilvl: 256,
+    track: 'Champion 4',
+    crestUsed: 'Champion',
+    amount: 20,
+  },
+  {
+    crestType: 'Champion/Hero',
+    ilvl: 259,
+    track: 'Champion 5 / Hero 1',
+    crestUsed: 'Champion',
+    amount: 20,
+  },
+  {
+    crestType: 'Champion/Hero',
+    ilvl: 263,
+    track: 'Champion 6 / Hero 2',
+    crestUsed: 'Champion or Hero',
+    amount: 20,
+  },
+  {
+    crestType: 'Champion/Hero',
+    ilvl: 266,
+    track: 'Hero 3',
+    crestUsed: 'Hero',
+    amount: 20,
+  },
+  {
+    crestType: 'Champion/Hero',
+    ilvl: 269,
+    track: 'Hero 4',
+    crestUsed: 'Hero',
+    amount: 20,
+  },
+
+  // Myth
+  {
+    crestType: 'Hero/Myth',
+    ilvl: 272,
+    track: 'Hero 5 / Myth 1',
+    crestUsed: 'Hero',
+    amount: 20,
+  },
+  {
+    crestType: 'Hero/Myth',
+    ilvl: 276,
+    track: 'Hero 6 / Myth 2',
+    crestUsed: 'Hero or Myth',
+    amount: 20,
+  },
+  {
+    crestType: 'Hero/Myth',
+    ilvl: 279,
+    track: 'Myth 3',
+    crestUsed: 'Myth',
+    amount: 20,
+  },
+  {
+    crestType: 'Hero/Myth',
+    ilvl: 282,
+    track: 'Myth 4',
+    crestUsed: 'Myth',
+    amount: 20,
+  },
+  {
+    crestType: 'Hero/Myth',
+    ilvl: 285,
+    track: 'Myth 5',
+    crestUsed: 'Myth',
+    amount: 20,
+  },
+  {
+    crestType: 'Hero/Myth',
+    ilvl: 289,
+    track: 'Myth 6',
+    crestUsed: 'Myth',
+    amount: 20,
+  },
+];
