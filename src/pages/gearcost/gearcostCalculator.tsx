@@ -143,7 +143,7 @@ export function GearcostCalculator(): JSX.Element {
   };
 
   return (
-    <Box sx={{ padding: 2, width: '100%' }}>
+    <Box sx={{ padding: 2, width: { xs: '100%', md: '900px' } }}>
       <Typography variant="h1" sx={{ fontSize: '2rem', marginBottom: 2 }}>
         Gear Cost Calculator
       </Typography>
@@ -206,7 +206,7 @@ export function GearcostCalculator(): JSX.Element {
               gridTemplateColumns: {
                 xs: '1fr',
                 sm: 'repeat(2, 1fr)',
-                md: 'repeat(auto-fill, minmax(350px, 350px))',
+                md: 'repeat(auto-fill, minmax(270px, 270px))',
               },
               gap: 2,
             }}
