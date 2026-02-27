@@ -22,6 +22,7 @@ export const upgradeTrack = [
   'Hero 3/6',
   'Hero 4/6',
   'Hero 5/6',
+  'Hero 6/6',
   'Myth 1/6',
   'Myth 2/6',
   'Myth 3/6',
