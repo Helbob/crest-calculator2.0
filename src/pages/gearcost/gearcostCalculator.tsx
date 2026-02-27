@@ -124,7 +124,11 @@ export function GearcostCalculator(): JSX.Element {
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+            gridTemplateColumns: {
+              xs: 'repeat(2, 1fr)',
+              sm: 'repeat(3, 1fr)',
+              md: 'repeat(auto-fit, minmax(150px, 1fr))',
+            },
             gap: 2,
           }}
         >
@@ -163,7 +167,11 @@ export function GearcostCalculator(): JSX.Element {
           <Box
             sx={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 250px))',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(auto-fill, minmax(350px, 350px))',
+              },
               gap: 2,
             }}
           >
