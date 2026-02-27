@@ -106,6 +106,42 @@ export function GearcostCalculator(): JSX.Element {
     });
   };
 
+  const mythicDungeonDrops: Record<number, { type: string; crests: number }> = {
+    2: { type: 'Hero', crests: 10 },
+    3: { type: 'Hero', crests: 12 },
+    4: { type: 'Hero', crests: 14 },
+    5: { type: 'Hero', crests: 16 },
+    6: { type: 'Hero', crests: 18 },
+    7: { type: 'Myth', crests: 10 },
+    8: { type: 'Myth', crests: 12 },
+    9: { type: 'Myth', crests: 14 },
+    10: { type: 'Myth', crests: 16 },
+  };
+
+  const calculateDungeonRuns = (
+    crestCost: number,
+    crestType: string
+  ): { runs: number; mythicLevel: number } => {
+    if (crestCost === 0 || !crestType) return { runs: 0, mythicLevel: 0 };
+
+    // Determine the best mythic level based on crest type
+    let mythicLevel = 0;
+    if (crestType === 'Hero') {
+      mythicLevel = 6; // M+6 gives 18 Hero crests (best Hero bracket)
+    } else if (crestType === 'Myth') {
+      mythicLevel = 10; // M+10 gives 16 Myth crests (best Myth bracket)
+    } else {
+      return { runs: 0, mythicLevel: 0 };
+    }
+
+    const drop = mythicDungeonDrops[mythicLevel];
+    if (!drop || drop.type !== crestType) {
+      return { runs: 0, mythicLevel: 0 };
+    }
+
+    return { runs: Math.ceil(crestCost / drop.crests), mythicLevel };
+  };
+
   return (
     <Box sx={{ padding: 2, width: '100%' }}>
       <Typography variant="h1" sx={{ fontSize: '2rem', marginBottom: 2 }}>
@@ -300,9 +336,34 @@ export function GearcostCalculator(): JSX.Element {
                             color: '#10b981',
                             fontWeight: 'bold',
                             fontSize: '1.1rem',
+                            marginBottom: 1.5,
                           }}
                         >
                           {crestCost} {crestType}
+                        </Typography>
+
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            color: '#aaa',
+                            display: 'block',
+                          }}
+                        >
+                          Mythic+ Runs Needed
+                        </Typography>
+                        <Typography
+                          sx={{
+                            color: '#60a5fa',
+                            fontWeight: 'bold',
+                            fontSize: '1.1rem',
+                          }}
+                        >
+                          {calculateDungeonRuns(crestCost, crestType).runs}x +
+                          {
+                            calculateDungeonRuns(crestCost, crestType)
+                              .mythicLevel
+                          }{' '}
+                          runs
                         </Typography>
                       </Box>
                     )}
