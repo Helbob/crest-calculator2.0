@@ -107,7 +107,7 @@ export function GearcostCalculator(): JSX.Element {
   };
 
   return (
-    <Box sx={{ padding: 2, width: '900px' }}>
+    <Box sx={{ padding: 2, width: '100%' }}>
       <Typography variant="h1" sx={{ fontSize: '2rem', marginBottom: 2 }}>
         Gear Cost Calculator
       </Typography>
