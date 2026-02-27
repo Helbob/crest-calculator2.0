@@ -26,6 +26,8 @@ function RouterContent(): JSX.Element {
           padding: 2,
           width: { xs: '100%', md: 'calc(100% - 200px)' },
           transition: 'all 0.3s ease',
+          minHeight: '100vh',
+          alignContent: 'flex-start',
         }}
       >
         <Routes>

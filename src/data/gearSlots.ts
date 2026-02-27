@@ -1,0 +1,18 @@
+export const gearSlots = [
+  { value: 'head', label: 'Head' },
+  { value: 'neck', label: 'Neck' },
+  { value: 'shoulders', label: 'Shoulders' },
+  { value: 'back', label: 'Back (Cloak)' },
+  { value: 'chest', label: 'Chest' },
+  { value: 'wrist', label: 'Wrist (Bracers)' },
+  { value: 'hands', label: 'Hands' },
+  { value: 'waist', label: 'Waist' },
+  { value: 'legs', label: 'Legs' },
+  { value: 'feet', label: 'Feet' },
+  { value: 'ring1', label: 'Ring 1' },
+  { value: 'ring2', label: 'Ring 2' },
+  { value: 'trinket1', label: 'Trinket 1' },
+  { value: 'trinket2', label: 'Trinket 2' },
+  { value: 'mainhand', label: 'Main Hand' },
+  { value: 'offhand', label: 'Off Hand' },
+];

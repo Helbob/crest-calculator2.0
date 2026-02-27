@@ -1,20 +1,333 @@
-import { JSX } from 'react';
-import { Box, Typography } from '@mui/material';
+import { JSX, useState } from 'react';
+import {
+  Box,
+  Typography,
+  Select,
+  MenuItem,
+  Checkbox,
+  FormControlLabel,
+  Paper,
+} from '@mui/material';
+import Grid from '@mui/material/Grid';
+import { gearSlots } from '../../data/gearSlots';
+
+const inputStyles = {
+  '& .MuiOutlinedInput-root': {
+    color: '#fff',
+    backgroundColor: '#383838',
+    borderRadius: '8px',
+    '& fieldset': {
+      borderColor: '#666',
+    },
+    '&:hover fieldset': {
+      borderColor: '#888',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#7171ad',
+    },
+  },
+  '& .MuiInputLabel-root': {
+    color: '#aaa',
+    '&.Mui-focused': {
+      color: '#7171ad',
+    },
+  },
+  '& .MuiInputBase-input': {
+    color: '#fff',
+  },
+  '& .MuiSelect-icon': {
+    color: '#aaa',
+  },
+};
+
+const upgradeTrack = [
+  'Adventurer 1/6',
+  'Adventurer 2/6',
+  'Adventurer 3/6',
+  'Adventurer 4/6',
+  'Adventurer 5/6',
+  'Veteran 1/6',
+  'Veteran 2/6',
+  'Veteran 3/6',
+  'Veteran 4/6',
+  'Veteran 5/6',
+  'Champion 1/6',
+  'Champion 2/6',
+  'Champion 3/6',
+  'Champion 4/6',
+  'Champion 5/6',
+  'Hero 1/6',
+  'Hero 2/6',
+  'Hero 3/6',
+  'Hero 4/6',
+  'Hero 5/6',
+  'Myth 1/6',
+  'Myth 2/6',
+  'Myth 3/6',
+  'Myth 4/6',
+  'Myth 5/6',
+];
+
+interface SelectedItem {
+  slot: string;
+  currentTrack: string;
+  targetTrack: string;
+}
 
 export function GearcostCalculator(): JSX.Element {
+  const [checkedSlots, setCheckedSlots] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<SelectedItem[]>([]);
+
+  const handleCheckboxChange = (slotValue: string) => {
+    if (checkedSlots.includes(slotValue)) {
+      setCheckedSlots(checkedSlots.filter((s) => s !== slotValue));
+      setSelectedItems(selectedItems.filter((item) => item.slot !== slotValue));
+    } else {
+      setCheckedSlots([...checkedSlots, slotValue]);
+      setSelectedItems([
+        ...selectedItems,
+        { slot: slotValue, currentTrack: '', targetTrack: '' },
+      ]);
+    }
+  };
+
+  const handleItemChange = (
+    slotValue: string,
+    field: 'currentTrack' | 'targetTrack',
+    value: string
+  ) => {
+    setSelectedItems(
+      selectedItems.map((item) =>
+        item.slot === slotValue ? { ...item, [field]: value } : item
+      )
+    );
+  };
+
+  const calculateCrestCost = (current: string, target: string) => {
+    if (!current || !target) return 0;
+
+    const currentLevel = parseInt(current.split(' ')[1].split('/')[0]);
+    const targetLevel = parseInt(target.split(' ')[1].split('/')[0]);
+
+    if (targetLevel <= currentLevel) return 0;
+
+    const levelDiff = targetLevel - currentLevel;
+    return levelDiff * 20;
+  };
+
+  const getCrestType = (track: string) => {
+    if (!track) return '';
+    return track.split(' ')[0];
+  };
+
+  const getValidTargetTracks = (currentTrack: string) => {
+    if (!currentTrack) return upgradeTrack;
+
+    const currentType = currentTrack.split(' ')[0]; // e.g., "Champion"
+    const currentLevel = parseInt(currentTrack.split(' ')[1].split('/')[0]); // e.g., 2
+
+    // Return only tracks with same type and higher level
+    return upgradeTrack.filter((track) => {
+      const trackType = track.split(' ')[0];
+      const trackLevel = parseInt(track.split(' ')[1].split('/')[0]);
+      return trackType === currentType && trackLevel > currentLevel;
+    });
+  };
+
   return (
-    <Box sx={{ padding: 2 }}>
+    <Box sx={{ padding: 2, width: '100%' }}>
       <Typography variant="h1" sx={{ fontSize: '2rem', marginBottom: 2 }}>
         Gear Cost Calculator
       </Typography>
-      <Typography variant="body1" sx={{ color: '#aaa' }}>
-        Coming soon...
+      <Typography variant="body2" sx={{ color: '#555', marginBottom: 3 }}>
+        Select the gear items you want to upgrade and their current/target
+        upgrade tracks.
       </Typography>
-      <Typography variant="body2" sx={{ color: '#555', marginTop: 1 }}>
-        This tool will help you calculate the cost of upgrading your gear to
-        reach a certain item level, taking into account the various upgrade
-        paths and their associated costs.
-      </Typography>
+
+      {/* Checkboxes for gear slots */}
+      <Box sx={{ marginBottom: 3 }}>
+        <Typography variant="h6" sx={{ color: '#fff', marginBottom: 1 }}>
+          Gear Slots
+        </Typography>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+            gap: 2,
+          }}
+        >
+          {gearSlots.map((slot: { value: string; label: string }) => (
+            <FormControlLabel
+              key={slot.value}
+              control={
+                <Checkbox
+                  checked={checkedSlots.includes(slot.value)}
+                  onChange={() => handleCheckboxChange(slot.value)}
+                  sx={{
+                    color: '#7171ad',
+                    '&.Mui-checked': {
+                      color: '#7171ad',
+                    },
+                  }}
+                />
+              }
+              label={slot.label}
+              sx={{
+                color: '#cbd5e1',
+                '& .MuiTypography-root': {
+                  color: '#cbd5e1',
+                },
+              }}
+            />
+          ))}
+        </Box>
+      </Box>
+
+      {/* Selected items with track selection */}
+      {selectedItems.length > 0 && (
+        <Box sx={{ marginBottom: 3 }}>
+          <Typography variant="h6" sx={{ color: '#fff', marginBottom: 2 }}>
+            Upgrade Paths
+          </Typography>
+          <Grid container spacing={2}>
+            {selectedItems.map((item) => {
+              const crestCost = calculateCrestCost(
+                item.currentTrack,
+                item.targetTrack
+              );
+              const crestType = getCrestType(item.targetTrack);
+
+              return (
+                <Grid item xs={12} sm={6} md={4} key={item.slot}>
+                  <Paper
+                    sx={{
+                      backgroundColor: '#2a2a3e',
+                      padding: 2,
+                      borderRadius: '8px',
+                      border: '1px solid #444',
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        color: '#7171ad',
+                        fontWeight: 'bold',
+                        marginBottom: 1,
+                      }}
+                    >
+                      {gearSlots.find((s) => s.value === item.slot)?.label}
+                    </Typography>
+
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: '#aaa',
+                        display: 'block',
+                        marginBottom: 0.5,
+                      }}
+                    >
+                      Current Track
+                    </Typography>
+                    <Select
+                      value={item.currentTrack}
+                      onChange={(e) =>
+                        handleItemChange(
+                          item.slot,
+                          'currentTrack',
+                          e.target.value as string
+                        )
+                      }
+                      displayEmpty
+                      size="small"
+                      sx={{
+                        ...inputStyles,
+                        marginBottom: 2,
+                        width: '100%',
+                      }}
+                    >
+                      <MenuItem value="">Select track...</MenuItem>
+                      {upgradeTrack.map((track) => (
+                        <MenuItem key={track} value={track}>
+                          {track}
+                        </MenuItem>
+                      ))}
+                    </Select>
+
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: '#aaa',
+                        display: 'block',
+                        marginBottom: 0.5,
+                      }}
+                    >
+                      Target Track
+                    </Typography>
+                    <Select
+                      value={item.targetTrack}
+                      onChange={(e) =>
+                        handleItemChange(
+                          item.slot,
+                          'targetTrack',
+                          e.target.value as string
+                        )
+                      }
+                      displayEmpty
+                      size="small"
+                      disabled={!item.currentTrack}
+                      sx={{
+                        ...inputStyles,
+                        marginBottom: 2,
+                        width: '100%',
+                      }}
+                    >
+                      <MenuItem value="">
+                        {!item.currentTrack
+                          ? 'Select current track first'
+                          : 'Select track...'}
+                      </MenuItem>
+                      {getValidTargetTracks(item.currentTrack).map((track) => (
+                        <MenuItem key={track} value={track}>
+                          {track}
+                        </MenuItem>
+                      ))}
+                    </Select>
+
+                    {crestCost > 0 && (
+                      <Box
+                        sx={{
+                          backgroundColor: '#1a1a2e',
+                          padding: 1.5,
+                          borderRadius: '6px',
+                          border: '1px solid #7171ad',
+                        }}
+                      >
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            color: '#aaa',
+                            display: 'block',
+                          }}
+                        >
+                          Crest Cost
+                        </Typography>
+                        <Typography
+                          sx={{
+                            color: '#10b981',
+                            fontWeight: 'bold',
+                            fontSize: '1.1rem',
+                          }}
+                        >
+                          {crestCost} {crestType}
+                        </Typography>
+                      </Box>
+                    )}
+                  </Paper>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
+      )}
     </Box>
   );
 }
