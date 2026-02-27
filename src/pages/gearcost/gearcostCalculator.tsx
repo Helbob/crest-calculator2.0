@@ -8,8 +8,8 @@ import {
   FormControlLabel,
   Paper,
 } from '@mui/material';
-import Grid from '@mui/material/Grid';
 import { gearSlots } from '../../data/gearSlots';
+import { upgradeTrack } from '../../data/upgradeTrack';
 
 const inputStyles = {
   '& .MuiOutlinedInput-root': {
@@ -39,34 +39,6 @@ const inputStyles = {
     color: '#aaa',
   },
 };
-
-const upgradeTrack = [
-  'Adventurer 1/6',
-  'Adventurer 2/6',
-  'Adventurer 3/6',
-  'Adventurer 4/6',
-  'Adventurer 5/6',
-  'Veteran 1/6',
-  'Veteran 2/6',
-  'Veteran 3/6',
-  'Veteran 4/6',
-  'Veteran 5/6',
-  'Champion 1/6',
-  'Champion 2/6',
-  'Champion 3/6',
-  'Champion 4/6',
-  'Champion 5/6',
-  'Hero 1/6',
-  'Hero 2/6',
-  'Hero 3/6',
-  'Hero 4/6',
-  'Hero 5/6',
-  'Myth 1/6',
-  'Myth 2/6',
-  'Myth 3/6',
-  'Myth 4/6',
-  'Myth 5/6',
-];
 
 interface SelectedItem {
   slot: string;
@@ -135,7 +107,7 @@ export function GearcostCalculator(): JSX.Element {
   };
 
   return (
-    <Box sx={{ padding: 2, width: '100%' }}>
+    <Box sx={{ padding: 2, width: '900px' }}>
       <Typography variant="h1" sx={{ fontSize: '2rem', marginBottom: 2 }}>
         Gear Cost Calculator
       </Typography>
@@ -183,13 +155,18 @@ export function GearcostCalculator(): JSX.Element {
         </Box>
       </Box>
 
-      {/* Selected items with track selection */}
       {selectedItems.length > 0 && (
         <Box sx={{ marginBottom: 3 }}>
           <Typography variant="h6" sx={{ color: '#fff', marginBottom: 2 }}>
             Upgrade Paths
           </Typography>
-          <Grid container spacing={2}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 250px))',
+              gap: 2,
+            }}
+          >
             {selectedItems.map((item) => {
               const crestCost = calculateCrestCost(
                 item.currentTrack,
@@ -198,7 +175,7 @@ export function GearcostCalculator(): JSX.Element {
               const crestType = getCrestType(item.targetTrack);
 
               return (
-                <Grid item xs={12} sm={6} md={4} key={item.slot}>
+                <Box key={item.slot}>
                   <Paper
                     sx={{
                       backgroundColor: '#2a2a3e',
@@ -322,10 +299,10 @@ export function GearcostCalculator(): JSX.Element {
                       </Box>
                     )}
                   </Paper>
-                </Grid>
+                </Box>
               );
             })}
-          </Grid>
+          </Box>
         </Box>
       )}
     </Box>

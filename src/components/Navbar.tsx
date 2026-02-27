@@ -1,4 +1,4 @@
-import { JSX, useState } from 'react';
+import { JSX, useState, useContext } from 'react';
 import {
   Box,
   Button,
@@ -11,13 +11,14 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { SidebarContext } from '../routes/index';
 
 export function Navbar(): JSX.Element {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { sidebarOpen, setSidebarOpen } = useContext(SidebarContext);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const isActive = (path: string) => location.pathname === path;
 

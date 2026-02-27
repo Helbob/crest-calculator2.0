@@ -1,4 +1,4 @@
-import { JSX, createContext, useState, ReactNode } from 'react';
+import { JSX, createContext, useState, ReactNode, useContext } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { Calculator } from '../pages/calculator/Calculator';
@@ -15,16 +15,19 @@ export const SidebarContext = createContext({
 function RouterContent(): JSX.Element {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { sidebarOpen } = useContext(SidebarContext);
+
+  const sidebarWidth = sidebarOpen ? '200px' : '60px';
 
   return (
     <Box sx={{ display: 'flex' }}>
       <Navbar />
       <Box
         sx={{
-          marginLeft: { xs: 0, md: '200px' },
+          marginLeft: { xs: 0, md: sidebarWidth },
           marginTop: { xs: '60px', md: 0 },
           padding: 2,
-          width: { xs: '100%', md: 'calc(100% - 200px)' },
+          flex: 1,
           transition: 'all 0.3s ease',
           minHeight: '100vh',
           alignContent: 'flex-start',
